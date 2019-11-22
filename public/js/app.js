@@ -1838,6 +1838,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
 //
 //
 //
@@ -1868,9 +1869,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "UserProfile",
-  props: ['route'],
+  props: ['route', 'roleUpdateUrl', 'roleDeleteUrl'],
   data: function data() {
     return {
       usersData: {}
@@ -1882,6 +1893,26 @@ __webpack_require__.r(__webpack_exports__);
     axios.get("".concat(this.route)).then(function (response) {
       _this.usersData = response.data;
     });
+  },
+  methods: {
+    update: function update() {
+      var formData = $('#role').serializeArray();
+      axios.post("".concat(this.roleUpdateUrl), {
+        id: formData[0]
+      }).then(function (response) {
+        _app__WEBPACK_IMPORTED_MODULE_0__["adminEventService"].$emit('userUpdated', response.data);
+      });
+      console.log(formData);
+    },
+    update2: function update2() {
+      var formData = $('#role2').serializeArray();
+      axios.post("".concat(this.roleDeleteUrl), {
+        id: formData[0]
+      }).then(function (response) {
+        _app__WEBPACK_IMPORTED_MODULE_0__["adminEventService"].$emit('userUpdated', response.data);
+      });
+      console.log(formData);
+    }
   }
 });
 
@@ -37436,7 +37467,55 @@ var render = function() {
           _vm._v(" "),
           _c("td", [_vm._v(_vm._s(item.provider))]),
           _vm._v(" "),
-          _vm._m(1, true)
+          _c("td", [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col" }, [
+                _c("form", { attrs: { id: "role" } }, [
+                  _c("input", {
+                    attrs: { type: "hidden", name: "id" },
+                    domProps: { value: item.id }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          return _vm.update()
+                        }
+                      }
+                    },
+                    [_vm._v("Vanzator")]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col" }, [
+                _c("form", { attrs: { id: "role2" } }, [
+                  _c("input", {
+                    attrs: { type: "hidden", name: "id" },
+                    domProps: { value: item.id }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          return _vm.update2()
+                        }
+                      }
+                    },
+                    [_vm._v("Anuleaza Vanzator")]
+                  )
+                ])
+              ])
+            ])
+          ])
         ])
       }),
       0
@@ -37459,24 +37538,6 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("OAuth Provider")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Actions")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("a", { staticClass: "btn btn-danger", attrs: { href: "#" } }, [
-            _vm._v("Button")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "btn btn-secondary", attrs: { href: "#" } }, [
-            _vm._v("Button")
-          ])
-        ])
       ])
     ])
   }
@@ -50078,12 +50139,13 @@ webpackContext.id = "./resources/js sync recursive \\.vue$/";
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! exports provided: userEventService */
+/*! exports provided: userEventService, adminEventService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userEventService", function() { return userEventService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "adminEventService", function() { return adminEventService; });
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -50098,6 +50160,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  */
 
 var userEventService = new Vue();
+var adminEventService = new Vue();
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -50534,6 +50597,8 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__(/*! C:\Users\Wire Impulse\Desktop\itec-2019\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\Users\Wire Impulse\Desktop\itec-2019\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/andrei/Desktop/hackathon itec 2019/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/andrei/Desktop/hackathon itec 2019/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
