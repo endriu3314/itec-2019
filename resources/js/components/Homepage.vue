@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="col-10">
-            <a href="#"><i class="fas fa-bars fa-2x"></i></i></a>
+            <a href="#"><i class="fas fa-bars fa-2x"></i></a>
             <a href="#"><i class="fas fa-grip-horizontal fa-2x"></i></a>
             <div class="row">
                 <div class="card m-1 w-custom">

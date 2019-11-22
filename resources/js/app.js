@@ -15,6 +15,7 @@ window.Vue = require('vue');
 
 export const userEventService = new Vue();
 export const adminEventService = new Vue();
+export const productEventService = new Vue();
 
 /**
  * The following block of code may be used to automatically register your

@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function isAdmin(){
         return $this->hasRole('admin');
     }
+
+    public function isVanzator(){
+        return $this->hasPermissionTo('vanzator_perms');
+    }
 }

@@ -42,6 +42,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/make-vanzator', 'AdminController@setVanzator')->name('admin.make-vanzator');
         Route::post('/delete-vanzator', 'AdminController@deleteVanzator')->name('admin.delete-vanzator');
     //});
+
+    Route::prefix('vanzator')->group(function () {
+        Route::get('/', 'VanzatorController@index')->name('vanzator.home');
+        Route::post('create', 'ProductController@create')->name('vanzator.create');
+    });
 });
 
 
