@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function getProducts(Request $request){
+        $res = null;
+
+        try {
+            $res = Product::where('user_id', $request->id)->get()->toJson();
+        } catch (Exception $e) {
+            $res = ErrorHandler::getErrorResponse('301');
+        }
+
+        return $res;
+    }
     public function create(Request $request){
         $product = new Product();
 
