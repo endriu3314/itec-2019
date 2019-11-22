@@ -37,9 +37,11 @@ Route::middleware(['auth'])->group(function () {
     });
 
     //admin routes
-    Route::group(['middleware' => ['role:admin']], function(){
+    //Route::group(['middleware' => ['role:admin']], function(){
         Route::get('/admin', 'AdminController@index')->name('admin.home');
-    });
+        Route::post('/make-vanzator', 'AdminController@setVanzator')->name('admin.make-vanzator');
+        Route::post('/delete-vanzator', 'AdminController@deleteVanzator')->name('admin.delete-vanzator');
+    //});
 });
 
 
