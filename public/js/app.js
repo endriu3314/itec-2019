@@ -2363,8 +2363,8 @@ __webpack_require__.r(__webpack_exports__);
       var formData = $('#new-product').serializeArray();
       axios.post("".concat(this.route), {
         name: formData[0].value,
-        details: formData[1].value,
-        img_url: formData[2].value,
+        details: formData[2].value,
+        img_url: formData[1].value,
         stock: formData[3].value,
         price: formData[4].value,
         user_id: formData[5].value
