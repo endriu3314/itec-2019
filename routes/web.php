@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('vanzator')->group(function () {
         Route::get('/', 'VanzatorController@index')->name('vanzator.home');
         Route::post('create', 'ProductController@create')->name('vanzator.create');
+        Route::post('update', 'ProductController@update')->name('vanzator.update');
     });
 });
 

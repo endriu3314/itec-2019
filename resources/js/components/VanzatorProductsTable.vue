@@ -35,8 +35,9 @@
                                     <input type="number" class="form-control" name="product-price" id="product-price" :value="price">
                                 </div>
                             </div>
-                            <!--<input name="user_id" type="hidden" :value="userData.id"/>
-                            <a class="btn btn-primary mt-2" v-on:click="create()">Submit</a>-->
+                            <input name="product-id" type="hidden" :value="id"/>
+                            <input name="user_id" type="hidden" :value="this.userId"/>
+                            <a class="btn btn-primary mt-2" v-on:click="update()">Submit</a>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -82,17 +83,14 @@
 </template>
 
 <script>
-    import VanzatorProductModal from "./VanzatorProductModal";
+    import {productEventService} from "../app";
 
     export default {
         name: "VanzatorProductsTable",
         props: ['productData', 'updateUrl', 'user-id'],
-        components: {
-            VanzatorProductModal
-        },
-
         data:() => {
             return {
+                id: '',
                 name: '',
                 description: '',
                 img_url: '',
@@ -109,12 +107,31 @@
         },
         methods:{
             productClicked: function(product) {
+                this.id = product.id;
                 this.name = product.name;
                 this.description = product.details;
                 this.img_url = product.img_url;
                 this.stock = product.stock;
                 this.price = product.price;
                 $("#modal").modal('show');
+            },
+
+            update: function () {
+                const formData = $('#edit-product').serializeArray();
+
+                axios.post(`${this.updateUrl}`, {
+                    pname : formData[0].value,
+                    pdetails : formData[1].value,
+                    pimg_url : formData[2].value,
+                    pstock : formData[3].value,
+                    pprice : formData[4].value,
+                    pid : formData[5].value,
+                    puserid : formData[6].value,
+                }).then((response) => {
+                    productEventService.$emit('productUpdated', response.data);
+                });
+
+                console.log(formData);
             }
         }
     }

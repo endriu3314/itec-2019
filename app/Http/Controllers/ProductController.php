@@ -19,13 +19,13 @@ class ProductController extends Controller
 
         return $res;
     }
+
     public function create(Request $request){
         $product = new Product();
 
         $request->validate([
             'user_id' => 'required',
             'name' => 'required|string',
-            'details' => 'required|string',
             'stock' => 'required|integer',
             'price' => 'required|integer'
         ]);
@@ -37,6 +37,33 @@ class ProductController extends Controller
             $product->img_url = $request->img_url;
             $product->stock = $request->img_url;
             $product->price = $request->price;
+            $product->save();
+            $result = $product;
+        } catch (Exception $e) {
+            $result = ErrorHandler::getErrorResponse('103');
+        }
+
+        return $result;
+    }
+
+    public function update(Request $request){
+        $result = null;
+
+        $request->validate([
+            'pname' => 'required|string',
+            'pstock' => 'required|integer',
+            'pprice' => 'required|integer',
+        ]);
+
+        try {
+            $product = Product::find($request->pid);
+
+            $product->name = $request->pname;
+            $product->details = $request->pdetails;
+            $product->img_url = $request->pimg_url;
+            $product->stock = $request->pstock;
+            $product->price = $request->pprice;
+
             $product->save();
             $result = $product;
         } catch (Exception $e) {

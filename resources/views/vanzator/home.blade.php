@@ -2,7 +2,7 @@
 
 @section('content')
     <vanzator-create route="{{route('vanzator.create')}}" user-data-url="{{route('api-userdata', Auth::user()->id)}}"></vanzator-create>
-    <vanzator-products-table product-data="{{route('api-productsdata', Auth::user()->id)}}" user-id="{{Auth::user()->id}}"></vanzator-products-table>
+    <vanzator-products-table product-data="{{route('api-productsdata', Auth::user()->id)}}" user-id="{{Auth::user()->id}}" update-url="{{route('vanzator.update')}}"></vanzator-products-table>
 @endsection
 <script>
 </script>
