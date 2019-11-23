@@ -72,4 +72,18 @@ class ProductController extends Controller
 
         return $result;
     }
+
+    public function delete(Request $request){
+        $res = null;
+
+        try{
+            $prod = Product::find($request->id);
+            $prod->delete();
+            $res = $prod;
+        } catch (Exception $e) {
+            $res = ErrorHandler::getErrorResponse('103');
+        }
+
+        return $res;
+    }
 }

@@ -22,3 +22,4 @@ Route::get('/users', 'UserController@getUsers')->name('api-users');
 Route::get('/user-role/{id}', 'UserController@getUserRole')->name('api-userrole');
 
 Route::get('products/{id}', 'ProductController@getProducts')->name('api-productsdata');
+Route::delete('/products/{id}', 'ProductController@delete')->name('api-deleteproduct');

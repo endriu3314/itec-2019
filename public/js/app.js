@@ -2325,10 +2325,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "VanzatorProductsTable",
-  props: ['productData', 'updateUrl', 'user-id'],
+  props: ['productData', 'updateUrl', 'deleteUrl', 'user-id'],
   data: function data() {
     return {
       id: '',
@@ -2337,6 +2340,7 @@ __webpack_require__.r(__webpack_exports__);
       img_url: '',
       stock: '',
       price: '',
+      result: '',
       productsData: {},
       csrf: $('meta[name="csrf-token"]').attr('content')
     };
@@ -2372,6 +2376,16 @@ __webpack_require__.r(__webpack_exports__);
         _app__WEBPACK_IMPORTED_MODULE_0__["productEventService"].$emit('productUpdated', response.data);
       });
       console.log(formData);
+    },
+    deleteProduct: function deleteProduct(pid) {
+      var _this2 = this;
+
+      console.log(pid); //axios.delete('api/products/', {params: {'id': this.id});
+
+      axios["delete"]('/api/products/' + pid).then(function (response) {
+        _this2.result = response.data;
+      });
+      console.log(this.result);
     }
   }
 });
@@ -38551,6 +38565,19 @@ var render = function() {
                     }
                   },
                   [_vm._v("Edit")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-danger",
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteProduct(product.id)
+                      }
+                    }
+                  },
+                  [_vm._v("Delete")]
                 )
               ])
             ])

@@ -71,7 +71,10 @@
                         <td>{{product.image}}</td>
                         <td>{{product.stock}}</td>
                         <td>{{product.price}}</td>
-                        <td><a class="btn btn-secondary" @click="productClicked(product)">Edit</a></td>
+                        <td>
+                            <a class="btn btn-secondary" @click="productClicked(product)">Edit</a>
+                            <a class="btn btn-danger" @click="deleteProduct(product.id)">Delete</a>
+                        </td>
                         <!--<vanzator-product-modal :product="product"></vanzator-product-modal>-->
 
                     </tr>
@@ -87,7 +90,7 @@
 
     export default {
         name: "VanzatorProductsTable",
-        props: ['productData', 'updateUrl', 'user-id'],
+        props: ['productData', 'updateUrl', 'deleteUrl', 'user-id'],
         data:() => {
             return {
                 id: '',
@@ -96,6 +99,7 @@
                 img_url: '',
                 stock: '',
                 price: '',
+                result: '',
                 productsData: {},
                 csrf: $('meta[name="csrf-token"]').attr('content')
             }
@@ -132,6 +136,18 @@
                 });
 
                 console.log(formData);
+            },
+
+            deleteProduct: function(pid){
+                console.log(pid);
+
+                //axios.delete('api/products/', {params: {'id': this.id});
+
+                axios.delete('/api/products/' + pid)
+                    .then(response => {
+                        this.result = response.data;
+                    });
+                console.log(this.result);
             }
         }
     }
