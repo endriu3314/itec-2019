@@ -21,11 +21,12 @@
                     <div class="col-md-3">
                         <label for="category-select">Category select</label>
                         <select class="form-control" name="category-select" id="category-select">
-                            <option>1</option>
+                            <!--<option>1</option>
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>
-                            <option>5</option>
+                            <option>5</option>-->
+                            <option v-for="item in categoryData" :value="item.id">{{item.name}}</option>
                         </select>
                     </div>
                     <div class="form-group col-md-9">
@@ -42,8 +43,48 @@
 </template>
 
 <script>
+    import {categoryEventService} from "../app";
+
     export default {
-        name: "AdminAddCategory"
+        name: "AdminAddCategory",
+        props: ['categoryRoute', 'subCategoryRoute', 'getData'],
+        data: () => {
+            return {
+                categoryData: {},
+            }
+        },
+        methods: {
+            createCategory: function() {
+                const formData = $('#new-category').serializeArray();
+                console.log(formData);
+
+                axios.post(`${this.categoryRoute}`, {
+                    name: formData[0].value
+                }).then((response) => {
+                    categoryEventService.$emit('categoryCreated', response.data)
+                });
+
+                window.location.reload();
+            },
+            createSubCategory: function() {
+                const formData = $('#new-sub-category').serializeArray();
+                console.log(formData);
+
+                axios.post(`${this.subCategoryRoute}`, {
+                    categoryid: formData[0].value,
+                    name: formData[1].value
+                }).then((response) => {
+                    categoryEventService.$emit('categoryCreated', response.data)
+                });
+
+                //window.location.reload();
+            }
+        },
+        mounted() {
+            axios.get(`${this.getData}`).then((response) => {
+                this.categoryData = response.data;
+            });
+        }
     }
 </script>
 

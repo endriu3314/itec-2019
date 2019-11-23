@@ -6,16 +6,16 @@
             <i class="fas fa-list-ul"></i> Adauga Categorie
         </div>
         <div class="card-body">
-            <admin-add-category></admin-add-category>
+            <admin-add-category get-data="{{route('api-getcategories')}}" category-route="{{route('admin.create-category')}}" sub-category-route="{{route('admin.create-sub-category')}}"></admin-add-category>
             <hr/>
             <div class="row">
                 <div class="col-md-6">
                     <h3 class="font-weight-bold">Category Table</h3>
-                    <admin-category-table></admin-category-table>
+                    <admin-category-table route="{{route('api-getcategories')}}"></admin-category-table>
                 </div>
                 <div class="col-md-6">
                     <h3 class="font-weight-bold">Sub Category Table</h3>
-                    <admin-sub-category-table></admin-sub-category-table>
+                    <admin-sub-category-table route="{{route('api-getsubcategoriesnames')}}"></admin-sub-category-table>
                 </div>
             </div>
         </div>

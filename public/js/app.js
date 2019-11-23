@@ -1838,6 +1838,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
 //
 //
 //
@@ -1881,8 +1882,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "AdminAddCategory"
+  name: "AdminAddCategory",
+  props: ['categoryRoute', 'subCategoryRoute', 'getData'],
+  data: function data() {
+    return {
+      categoryData: {}
+    };
+  },
+  methods: {
+    createCategory: function createCategory() {
+      var formData = $('#new-category').serializeArray();
+      console.log(formData);
+      axios.post("".concat(this.categoryRoute), {
+        name: formData[0].value
+      }).then(function (response) {
+        _app__WEBPACK_IMPORTED_MODULE_0__["categoryEventService"].$emit('categoryCreated', response.data);
+      });
+      window.location.reload();
+    },
+    createSubCategory: function createSubCategory() {
+      var formData = $('#new-sub-category').serializeArray();
+      console.log(formData);
+      axios.post("".concat(this.subCategoryRoute), {
+        categoryid: formData[0].value,
+        name: formData[1].value
+      }).then(function (response) {
+        _app__WEBPACK_IMPORTED_MODULE_0__["categoryEventService"].$emit('categoryCreated', response.data);
+      }); //window.location.reload();
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("".concat(this.getData)).then(function (response) {
+      _this.categoryData = response.data;
+    });
+  }
 });
 
 /***/ }),
@@ -1928,7 +1966,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "AdminCategoryTable"
+  name: "AdminCategoryTable",
+  props: ['route'],
+  data: function data() {
+    return {
+      categoryData: {}
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("".concat(this.route)).then(function (response) {
+      _this.categoryData = response.data;
+    });
+  }
 });
 
 /***/ }),
@@ -1976,7 +2027,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "AdminSubCategoryTable"
+  name: "AdminSubCategoryTable",
+  props: ['route', 'routeCategoryName'],
+  data: function data() {
+    return {
+      subCategoryData: {},
+      categData: {}
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("".concat(this.route)).then(function (response) {
+      _this.subCategoryData = response.data;
+    });
+  },
+  methods: {
+    categoryName: function categoryName(scid) {
+      var _this2 = this;
+
+      axios.get("".concat(this.routeCategoryName())).then(function (response) {
+        _this2.categData = response.data;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2354,30 +2428,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "VanzatorCreate",
-  props: ['route', 'userDataUrl'],
+  props: ['route', 'userDataUrl', 'categoryUrl', 'subCategoryUrl'],
   methods: {
     create: function create() {
       var formData = $('#new-product').serializeArray();
+      console.log(formData);
       axios.post("".concat(this.route), {
         name: formData[0].value,
-        details: formData[2].value,
         img_url: formData[1].value,
-        stock: formData[3].value,
-        price: formData[4].value,
-        user_id: formData[5].value
+        details: formData[2].value,
+        category: formData[3].value,
+        subcategory: formData[4].value,
+        stock: formData[5].value,
+        price: formData[6].value,
+        user_id: formData[7].value
       }).then(function (response) {
         _app__WEBPACK_IMPORTED_MODULE_0__["productEventService"].$emit('productCreated', response.data);
-      });
-      window.location.reload();
+      }); //window.location.reload();
     }
   },
   data: function data() {
     return {
       userData: {},
-      csrf: $('meta[name="csrf-token"]').attr('content')
+      csrf: $('meta[name="csrf-token"]').attr('content'),
+      categoryData: {},
+      subCategoryData: {},
+      selected: null
     };
   },
   mounted: function mounted() {
@@ -2386,6 +2489,21 @@ __webpack_require__.r(__webpack_exports__);
     axios.get("".concat(this.userDataUrl)).then(function (response) {
       _this.userData = response.data;
     });
+    axios.get("".concat(this.categoryUrl)).then(function (response) {
+      _this.categoryData = response.data;
+    });
+    axios.get("".concat(this.subCategoryUrl)).then(function (response) {
+      _this.subCategoryData = response.data;
+    });
+  },
+  computed: {
+    subList: function subList() {
+      var _this2 = this;
+
+      return this.subCategoryData.filter(function (item) {
+        return item.id == _this2.select;
+      });
+    }
   }
 });
 
@@ -2526,8 +2644,8 @@ __webpack_require__.r(__webpack_exports__);
       var formData = $('#edit-product').serializeArray();
       axios.post("".concat(this.updateUrl), {
         pname: formData[0].value,
-        pdetails: formData[1].value,
-        pimg_url: formData[2].value,
+        pdetails: formData[2].value,
+        pimg_url: formData[1].value,
         pstock: formData[3].value,
         pprice: formData[4].value,
         pid: formData[5].value,
@@ -37892,7 +38010,29 @@ var render = function() {
       _c("hr"),
       _vm._v(" "),
       _c("form", { attrs: { id: "new-sub-category" } }, [
-        _vm._m(1),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-3" }, [
+            _c("label", { attrs: { for: "category-select" } }, [
+              _vm._v("Category select")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                staticClass: "form-control",
+                attrs: { name: "category-select", id: "category-select" }
+              },
+              _vm._l(_vm.categoryData, function(item) {
+                return _c("option", { domProps: { value: item.id } }, [
+                  _vm._v(_vm._s(item.name))
+                ])
+              }),
+              0
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(1)
+        ]),
         _vm._v(" "),
         _c(
           "a",
@@ -37935,47 +38075,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-3" }, [
-        _c("label", { attrs: { for: "category-select" } }, [
-          _vm._v("Category select")
-        ]),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            staticClass: "form-control",
-            attrs: { name: "category-select", id: "category-select" }
-          },
-          [
-            _c("option", [_vm._v("1")]),
-            _vm._v(" "),
-            _c("option", [_vm._v("2")]),
-            _vm._v(" "),
-            _c("option", [_vm._v("3")]),
-            _vm._v(" "),
-            _c("option", [_vm._v("4")]),
-            _vm._v(" "),
-            _c("option", [_vm._v("5")])
-          ]
-        )
+    return _c("div", { staticClass: "form-group col-md-9" }, [
+      _c("label", { attrs: { for: "sub-category-name" } }, [
+        _vm._v("Sub-Category Name")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-9" }, [
-        _c("label", { attrs: { for: "sub-category-name" } }, [
-          _vm._v("Sub-Category Name")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            name: "sub-category-name",
-            id: "sub-category-name",
-            placeholder: "Enter sub-category name"
-          }
-        })
-      ])
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          name: "sub-category-name",
+          id: "sub-category-name",
+          placeholder: "Enter sub-category name"
+        }
+      })
     ])
   }
 ]
@@ -38003,15 +38116,19 @@ var render = function() {
   return _c("table", { staticClass: "table table-striped table-responsive" }, [
     _vm._m(0),
     _vm._v(" "),
-    _c("tbody", [
-      _c("tr", [
-        _c("td", [_vm._v(_vm._s())]),
-        _vm._v(" "),
-        _c("td", [_vm._v(_vm._s())]),
-        _vm._v(" "),
-        _vm._m(1)
-      ])
-    ])
+    _c(
+      "tbody",
+      _vm._l(_vm.categoryData, function(item) {
+        return _c("tr", [
+          _c("td", [_vm._v(_vm._s(item.id))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(item.name))]),
+          _vm._v(" "),
+          _vm._m(1, true)
+        ])
+      }),
+      0
+    )
   ])
 }
 var staticRenderFns = [
@@ -38080,17 +38197,21 @@ var render = function() {
   return _c("table", { staticClass: "table table-striped table-responsive" }, [
     _vm._m(0),
     _vm._v(" "),
-    _c("tbody", [
-      _c("tr", [
-        _c("td", [_vm._v(_vm._s())]),
-        _vm._v(" "),
-        _c("td", [_vm._v(_vm._s())]),
-        _vm._v(" "),
-        _c("td", [_vm._v(_vm._s())]),
-        _vm._v(" "),
-        _vm._m(1)
-      ])
-    ])
+    _c(
+      "tbody",
+      _vm._l(_vm.subCategoryData, function(item) {
+        return _c("tr", [
+          _c("td", [_vm._v(_vm._s(item.id))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(item.categoryName))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(item.name))]),
+          _vm._v(" "),
+          _vm._m(1, true)
+        ])
+      }),
+      0
+    )
   ])
 }
 var staticRenderFns = [
@@ -38102,9 +38223,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
-        _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Category")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Actions")])
       ])
@@ -38709,7 +38830,76 @@ var render = function() {
       _c("form", { attrs: { id: "new-product" } }, [
         _vm._m(1),
         _vm._v(" "),
-        _vm._m(2),
+        _c("div", { staticClass: "row" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-2" }, [
+            _c("label", { attrs: { for: "category-select" } }, [
+              _vm._v("Category select")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selected,
+                    expression: "selected"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  option: "1",
+                  name: "category-select",
+                  id: "category-select"
+                },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selected = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              _vm._l(_vm.categoryData, function(item) {
+                return _c("option", { domProps: { value: item.id } }, [
+                  _vm._v(_vm._s(item.name))
+                ])
+              }),
+              0
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-2" }, [
+            _c("label", { attrs: { for: "category-select" } }, [
+              _vm._v("Category select")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                staticClass: "form-control",
+                attrs: { name: "subcategory-select", id: "subcategory-select" }
+              },
+              _vm._l(_vm.subCategoryData, function(item) {
+                return _c("option", { domProps: { value: item.id } }, [
+                  _vm._v(_vm._s(item.name))
+                ])
+              }),
+              0
+            )
+          ])
+        ]),
         _vm._v(" "),
         _vm._m(3),
         _vm._v(" "),
@@ -38786,7 +38976,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
+    return _c("div", { staticClass: "form-group col-md-8" }, [
       _c("label", { attrs: { for: "product-details" } }, [
         _vm._v("Product Details")
       ]),
@@ -39026,7 +39216,13 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(product.details))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(product.image))]),
+              _c("td", [
+                _c("img", {
+                  staticClass: "img-thumbnail",
+                  staticStyle: { "max-height": "50px" },
+                  attrs: { src: product.img_url }
+                })
+              ]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(product.stock))]),
               _vm._v(" "),
@@ -51326,7 +51522,7 @@ webpackContext.id = "./resources/js sync recursive \\.vue$/";
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! exports provided: userEventService, adminEventService, productEventService */
+/*! exports provided: userEventService, adminEventService, productEventService, categoryEventService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51334,6 +51530,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userEventService", function() { return userEventService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "adminEventService", function() { return adminEventService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "productEventService", function() { return productEventService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "categoryEventService", function() { return categoryEventService; });
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -51350,6 +51547,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 var userEventService = new Vue();
 var adminEventService = new Vue();
 var productEventService = new Vue();
+var categoryEventService = new Vue();
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
