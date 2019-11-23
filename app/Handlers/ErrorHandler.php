@@ -23,6 +23,10 @@ class ErrorHandler {
             "message" => "User could not be updated",
             "httpStatusCode"  => 400
         ],
+        "103" => [
+            "message" => "Product could not be added",
+            "httpStatusCode" => 400
+        ]
     ];
 
     /**
