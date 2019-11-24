@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+Route::get('/', 'ProductController@index');
 
 Auth::routes();
 
@@ -55,6 +56,11 @@ Route::middleware(['auth'])->group(function () {
             Route::post('update', 'ProductController@update')->name('vanzator.update');
         });
     });
+
+    Route::get('cart', 'ProductController@cart');
+    Route::get('add-to-cart/{id}', 'ProductController@addToCart');
+    Route::patch('update-cart', 'ProductController@updateCart');
+    Route::delete('remove-from-cart', 'ProductController@removeCart');
 });
 
 
