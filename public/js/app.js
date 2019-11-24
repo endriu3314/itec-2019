@@ -2543,8 +2543,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Product"
+  name: "Product",
+  props: ['getData'],
+  data: function data() {
+    return {
+      Data: {}
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("".concat(this.getData)).then(function (response) {
+      _this.Data = response.data;
+    });
+  }
 });
 
 /***/ }),
@@ -39682,7 +39702,9 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "a",
-                          { staticClass: "btn btn-secondary text-white" },
+                          {
+                            staticClass: "btn btn-secondary text-white disabled"
+                          },
                           [_vm._v("View Details")]
                         )
                       ])
@@ -39900,7 +39922,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card-header" }, [
+      _vm._v("\n        " + _vm._s(_vm.data.name) + "\n    ")
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

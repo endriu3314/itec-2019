@@ -65,6 +65,8 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::get('payment', 'PaymentController@index');
         Route::post('payment', 'PaymentController@store');
+
+        Route::get('product/{id}', 'ProductController@product');
     });
 });
 

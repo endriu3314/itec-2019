@@ -21,6 +21,18 @@ class ProductController extends Controller
         return $res;
     }
 
+    public function productId(Request $request){
+        $res = null;
+
+        try {
+            $res = Product::find($request->id)->toJson();
+        } catch (Exception $e) {
+            $res = ErrorHandler::getErrorResponse('301');
+        }
+
+        return $res;
+    }
+
     public function getAllProducts(Request $request){
         $res = null;
 
@@ -182,6 +194,11 @@ class ProductController extends Controller
     public function cart()
     {
         return view('cart');
+    }
+
+    public function product()
+    {
+        return view('product');
     }
 
     public function index()

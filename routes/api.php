@@ -24,6 +24,7 @@ Route::get('/user-role/{id}', 'UserController@getUserRole')->name('api-userrole'
 Route::get('products/', 'ProductController@getAllProducts')->name('api-allproducts');
 Route::get('products/{id}', 'ProductController@getProducts')->name('api-productsdata');
 Route::delete('/products/{id}', 'ProductController@delete')->name('api-deleteproduct');
+Route::get('product/{id}', 'ProductController@productId')->name('api-productid');
 
 Route::get('/categories/', 'CategoryController@getCategories')->name('api-getcategories');
 Route::get('/sub-categories-names/', 'CategoryController@getSubCategoriesWithName')->name('api-getsubcategoriesnames');
