@@ -2195,6 +2195,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Mapa__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Mapa */ "./resources/js/components/Mapa.vue");
 //
 //
 //
@@ -2331,8 +2332,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Homepage",
+  components: {
+    Mapa: _Mapa__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   props: ['route', 'categories'],
   data: function data() {
     return {
@@ -39699,6 +39707,19 @@ var render = function() {
                 ])
               }),
               0
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.view == "map"
+          ? _c(
+              "div",
+              { staticClass: "row" },
+              [
+                _c("mapa", {
+                  attrs: { route: "http://localhost:8000/api/users/" }
+                })
+              ],
+              1
             )
           : _vm._e()
       ])

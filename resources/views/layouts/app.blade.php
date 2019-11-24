@@ -14,7 +14,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/b26abc9a12.js" crossorigin="anonymous"></script>
-
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_fwV2_3EnXM5IXCvpIQoBvIBnkuSUg1E"
+            type="text/javascript"></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>

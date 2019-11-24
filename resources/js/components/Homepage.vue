@@ -77,6 +77,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="row" v-if="view == 'map'">
+                    <mapa route="http://localhost:8000/api/users/"></mapa>
+                </div>
             </div>
         </div>
     </div>
@@ -135,8 +138,10 @@
 </style>
 
 <script>
+    import Mapa from "./Mapa";
     export default {
         name: "Homepage",
+        components: {Mapa},
         props: ['route', 'categories'],
         data: () => {
             return{
