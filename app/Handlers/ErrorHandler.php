@@ -26,7 +26,15 @@ class ErrorHandler {
         "103" => [
             "message" => "Product could not be added",
             "httpStatusCode" => 400
-        ]
+        ],
+        "104" => [
+            "message" => "Categories could not be found",
+            "httpStatusCode" => 400
+        ],
+        "105" =>[
+            "message" => "Category could not be created",
+            "httpStatusCode" => 400
+        ],
     ];
 
     /**

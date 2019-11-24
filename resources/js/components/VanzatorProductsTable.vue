@@ -68,7 +68,7 @@
                         <td>{{product.id}}</td>
                         <td>{{product.name}}</td>
                         <td>{{product.details}}</td>
-                        <td>{{product.image}}</td>
+                        <td><img :src="product.img_url" class="img-thumbnail" style="max-height: 50px"></td>
                         <td>{{product.stock}}</td>
                         <td>{{product.price}}</td>
                         <td>
@@ -125,8 +125,8 @@
 
                 axios.post(`${this.updateUrl}`, {
                     pname : formData[0].value,
-                    pdetails : formData[1].value,
-                    pimg_url : formData[2].value,
+                    pdetails : formData[2].value,
+                    pimg_url : formData[1].value,
                     pstock : formData[3].value,
                     pprice : formData[4].value,
                     pid : formData[5].value,

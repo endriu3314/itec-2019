@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+Route::get('/', 'ProductController@index');
 
 Auth::routes();
 
@@ -37,17 +38,29 @@ Route::middleware(['auth'])->group(function () {
     });
 
     //admin routes
-    //Route::group(['middleware' => ['role:admin']], function(){
+    //Route::group(['middleware' => ['permission:admin_perms']], function(){
         Route::get('/admin', 'AdminController@index')->name('admin.home');
         Route::post('/make-vanzator', 'AdminController@setVanzator')->name('admin.make-vanzator');
         Route::post('/delete-vanzator', 'AdminController@deleteVanzator')->name('admin.delete-vanzator');
+
+        Route::prefix('category')->group(function () {
+            Route::post('/add', 'CategoryController@createCategory')->name('admin.create-category');
+            Route::post('/sub-category/add', 'CategoryController@createSubCategory')->name('admin.create-sub-category');
+        });
     //});
 
-    Route::prefix('vanzator')->group(function () {
-        Route::get('/', 'VanzatorController@index')->name('vanzator.home');
-        Route::post('create', 'ProductController@create')->name('vanzator.create');
-        Route::post('update', 'ProductController@update')->name('vanzator.update');
+    Route::group(['middleware' => ['permission:vanzator_perms']], function(){
+        Route::prefix('vanzator')->group(function () {
+            Route::get('/', 'VanzatorController@index')->name('vanzator.home');
+            Route::post('create', 'ProductController@create')->name('vanzator.create');
+            Route::post('update', 'ProductController@update')->name('vanzator.update');
+        });
     });
+
+    Route::get('cart', 'ProductController@cart');
+    Route::get('add-to-cart/{id}', 'ProductController@addToCart');
+    Route::patch('update-cart', 'ProductController@updateCart');
+    Route::delete('remove-from-cart', 'ProductController@removeCart');
 });
 
 

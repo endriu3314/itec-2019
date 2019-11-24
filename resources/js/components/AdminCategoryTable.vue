@@ -8,9 +8,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>{{  }}</td>
-            <td>{{  }}</td>
+        <tr v-for="item in categoryData">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
             <td>
                 <div class="row">
                     <div class="col m-0">
@@ -31,7 +31,19 @@
 
 <script>
     export default {
-        name: "AdminCategoryTable"
+        name: "AdminCategoryTable",
+        props: ['route'],
+        data:() => {
+            return {
+                categoryData: {},
+            }
+        },
+        mounted() {
+            axios.get(`${this.route}`).then((response) => {
+                this.categoryData = response.data;
+            });
+        },
+
     }
 </script>
 

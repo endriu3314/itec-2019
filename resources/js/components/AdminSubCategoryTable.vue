@@ -3,16 +3,16 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Name</th>
             <th scope="col">Category</th>
+            <th scope="col">Name</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>{{  }}</td>
-            <td>{{  }}</td>
-            <td>{{  }}</td>
+        <tr v-for="item in subCategoryData">
+            <td>{{ item.id }}</td>
+            <td>{{ item.categoryName }}</td>
+            <td>{{ item.name }}</td>
             <td>
                 <div class="row">
                     <div class="col m-0">
@@ -33,7 +33,26 @@
 
 <script>
     export default {
-        name: "AdminSubCategoryTable"
+        name: "AdminSubCategoryTable",
+        props: ['route', 'routeCategoryName'],
+        data:() => {
+            return {
+                subCategoryData: {},
+                categData: {},
+            }
+        },
+        mounted() {
+            axios.get(`${this.route}`).then((response) => {
+                this.subCategoryData = response.data;
+            });
+        },
+        methods: {
+            categoryName: function(scid){
+                axios.get(`${this.routeCategoryName()}`).then((response) => {
+                    this.categData = response.data;
+                });
+            }
+        }
     }
 </script>
 
