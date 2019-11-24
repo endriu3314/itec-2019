@@ -2331,18 +2331,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Homepage",
   props: ['route', 'categories'],
@@ -39565,9 +39553,7 @@ var render = function() {
                     )
                   ]
                 )
-              ]),
-              _vm._v(" "),
-              _vm._m(1)
+              ])
             ])
           ])
         ])
@@ -39739,50 +39725,6 @@ var staticRenderFns = [
         [
           _vm._v("\n                                    Categories "),
           _c("i", { staticClass: "fas fa-chevron-down" })
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", {}, [
-      _c("div", { attrs: { id: "headingTwo" } }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-link collapsed",
-            attrs: {
-              "data-toggle": "collapse",
-              "data-target": "#collapseTwo",
-              "aria-expanded": "false",
-              "aria-controls": "collapseTwo"
-            }
-          },
-          [
-            _vm._v("\n                                    Subcategories "),
-            _c("i", { staticClass: "fas fa-chevron-down" })
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "collapse",
-          attrs: {
-            id: "collapseTwo",
-            "aria-labelledby": "headingTwo",
-            "data-parent": "#accordion"
-          }
-        },
-        [
-          _c("div", {}, [
-            _vm._v(
-              "\n                                    2\n                                "
-            )
-          ])
         ]
       )
     ])

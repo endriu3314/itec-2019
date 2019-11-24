@@ -34,18 +34,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="">
-                                <div id="headingTwo">
-                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Subcategories <i class="fas fa-chevron-down"></i>
-                                    </button>
-                                </div>
-                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="">
-                                        2
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
