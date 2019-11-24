@@ -33,11 +33,11 @@
                         </div>
                     </div>
                 </td>
-                <td data-th="Price">$ {{ $details['price'] }}</td>
+                <td data-th="Price">{{ $details['price'] }} RON</td>
                 <td data-th="Quantity">
                     <input type="number" class="form-control" value="{{ $details['quantity'] }}"/>
                 </td>
-                <td data-th="Subtotal">${{ $details['price'] * $details['quantity'] }}</td>
+                <td data-th="Subtotal">{{ $details['price'] * $details['quantity'] }} RON</td>
                 <td>
                     <button class="btn btn-info update-cart" data-id="{{ $id }}"><i
                                 class="fa fa-refresh"></i></button>
@@ -49,7 +49,7 @@
         @endif
         </tbody>
     </table>
-            <a class="font-weight-bold">Total ${{ $total }}</a>
+            <a class="font-weight-bold">Total {{ $total }} RON</a>
         </div>
         <div class="card-footer">
                 <a href="{{ url('/') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>

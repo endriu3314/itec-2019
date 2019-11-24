@@ -34,11 +34,11 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td data-th="Price">$ {{ $details['price'] }}</td>
+                                <td data-th="Price"> {{ $details['price'] }} RON</td>
                                 <td data-th="Quantity">
                                     <a>{{ $details['quantity'] }}</a>
                                 </td>
-                                <td data-th="Subtotal">${{ $details['price'] * $details['quantity'] }}</td>
+                                <td data-th="Subtotal">{{ $details['price'] * $details['quantity'] }} RON</td>
                             </tr>
                             <input type="hidden" value="{{$total}}" name="amount" id="amount" form="new-payment">
                             <input type="hidden" value="{{$products}}" name="products" id="products" form="new-payment">
@@ -46,7 +46,7 @@
                     @endif
                     </tbody>
                 </table>
-                <h3 class="font-weight-bold text-right">Total ${{ $total }}</h3>
+                <h3 class="font-weight-bold text-right">Total {{ $total }} RON</h3>
                 <hr/>
                 <h3 class="font-weight-bold">Card Details</h3>
                 <form method="post" action="/payment" id="new-payment" enctype="multipart/form-data">
