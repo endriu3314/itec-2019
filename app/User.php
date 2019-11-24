@@ -46,7 +46,7 @@ class User extends Authenticatable
      * @return bool
      */
     public function isAdmin(){
-        return $this->hasRole('admin');
+        return $this->hasPermissionTo('admin_perms');
     }
 
     public function isVanzator(){

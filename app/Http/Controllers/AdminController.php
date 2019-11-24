@@ -16,7 +16,6 @@ class AdminController extends Controller
     {
         return view('admin.home');
     }
-
     /**
      * @param Request $requests
      */

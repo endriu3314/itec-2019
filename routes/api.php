@@ -28,3 +28,7 @@ Route::delete('/products/{id}', 'ProductController@delete')->name('api-deletepro
 Route::get('/categories/', 'CategoryController@getCategories')->name('api-getcategories');
 Route::get('/sub-categories-names/', 'CategoryController@getSubCategoriesWithName')->name('api-getsubcategoriesnames');
 Route::get('/sub-categories/', 'CategoryController@getSubCategories')->name('api-getsubcategories');
+
+Route::get('/cart', 'PaymentController@sessionCart')->name('api-session-cart');
+
+Route::get('/payments/{id}', 'PaymentController@userPayments')->name('api-payments');

@@ -9,8 +9,17 @@
                                user-update-url="{{route('update-user')}}">
             </user-profile-edit>
         </div>
+        <div class="col-12 mt-4">
+            <payments-table route="{{route('api-payments', Auth::user()->id)}}"></payments-table>
+        </div>
     </div>
 @endsection
 <script>
 
+</script>
+<script>
+    import PaymentsTable from "../../js/components/PaymentsTable";
+    export default {
+        components: {PaymentsTable}
+    }
 </script>

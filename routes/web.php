@@ -26,41 +26,46 @@ Route::get('oauth/{driver}/callback', 'Auth\SocialAuthController@handleProviderC
 Route::get('/home', 'HomeController@index')->name('home');
 
 //loged-in routes
-Route::middleware(['auth'])->group(function () {
-    Route::get('dashboard', function () {
-        return view('app');
-    });
-
-    Route::get('/profile/{id}', 'UserController@showProfile')->name('profile');
-
-    Route::prefix('user')->group(function () {
-        Route::post('update', 'UserController@updateUser')->name('update-user');
-    });
-
-    //admin routes
-    //Route::group(['middleware' => ['permission:admin_perms']], function(){
-        Route::get('/admin', 'AdminController@index')->name('admin.home');
-        Route::post('/make-vanzator', 'AdminController@setVanzator')->name('admin.make-vanzator');
-        Route::post('/delete-vanzator', 'AdminController@deleteVanzator')->name('admin.delete-vanzator');
-
-        Route::prefix('category')->group(function () {
-            Route::post('/add', 'CategoryController@createCategory')->name('admin.create-category');
-            Route::post('/sub-category/add', 'CategoryController@createSubCategory')->name('admin.create-sub-category');
+Route::group(['middleware' => ['web']], function () {
+    Route::middleware(['auth'])->group(function () {
+        Route::get('dashboard', function () {
+            return view('app');
         });
-    //});
 
-    Route::group(['middleware' => ['permission:vanzator_perms']], function(){
-        Route::prefix('vanzator')->group(function () {
-            Route::get('/', 'VanzatorController@index')->name('vanzator.home');
-            Route::post('create', 'ProductController@create')->name('vanzator.create');
-            Route::post('update', 'ProductController@update')->name('vanzator.update');
+        Route::get('/profile/{id}', 'UserController@showProfile')->name('profile');
+
+        Route::prefix('user')->group(function () {
+            Route::post('update', 'UserController@updateUser')->name('update-user');
         });
-    });
 
-    Route::get('cart', 'ProductController@cart');
-    Route::get('add-to-cart/{id}', 'ProductController@addToCart');
-    Route::patch('update-cart', 'ProductController@updateCart');
-    Route::delete('remove-from-cart', 'ProductController@removeCart');
+        //admin routes
+        Route::group(['middleware' => ['permission:admin_perms']], function(){
+            Route::get('/admin', 'AdminController@index')->name('admin.home');
+            Route::post('/make-vanzator', 'AdminController@setVanzator')->name('admin.make-vanzator');
+            Route::post('/delete-vanzator', 'AdminController@deleteVanzator')->name('admin.delete-vanzator');
+
+            Route::prefix('category')->group(function () {
+                Route::post('/add', 'CategoryController@createCategory')->name('admin.create-category');
+                Route::post('/sub-category/add', 'CategoryController@createSubCategory')->name('admin.create-sub-category');
+            });
+        });
+
+        Route::group(['middleware' => ['permission:vanzator_perms']], function () {
+            Route::prefix('vanzator')->group(function () {
+                Route::get('/', 'VanzatorController@index')->name('vanzator.home');
+                Route::post('create', 'ProductController@create')->name('vanzator.create');
+                Route::post('update', 'ProductController@update')->name('vanzator.update');
+            });
+        });
+
+        Route::get('cart', 'ProductController@cart');
+        Route::get('add-to-cart/{id}', 'ProductController@addToCart');
+        Route::patch('update-cart', 'ProductController@updateCart');
+        Route::delete('remove-from-cart', 'ProductController@removeCart');
+
+        Route::get('payment', 'PaymentController@index');
+        Route::post('payment', 'PaymentController@store');
+    });
 });
 
 

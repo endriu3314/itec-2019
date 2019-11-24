@@ -53,7 +53,7 @@
         </div>
         <div class="card-footer">
                 <a href="{{ url('/') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
-                <a href="" class="btn btn-primary float-right">Place Order</a>
+                <a href="{{url('/payment')}}" class="btn btn-primary float-right">Place Order</a>
         </div>
     </div>
     <script

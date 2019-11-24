@@ -61,7 +61,7 @@
                                     <hr/>
                                     <p v-if="product[1].details.length > 44">{{ product[1].details.substring(0, 45) + "..." }}</p>
                                     <p v-else>{{ product[1].details }}</p>
-                                    <p><strong>Price: </strong> {{ product[1].price }}$</p>
+                                    <p><strong>Price: </strong> {{ product[1].price }} RON</p>
                                     <a v-if="product[1].stock > 0" class="btn btn-primary" :href="'add-to-cart/' + product[1].id" role="button">Add to cart</a>
                                     <a v-else class="btn btn-primary disabled"role="button">Add to cart</a>
                                     <a class="btn btn-secondary text-white">View Details</a>
@@ -80,7 +80,7 @@
                                     <hr/>
                                     <p v-if="product[1].details.length > 44">{{ product[1].details.substring(0, 45) + "..." }}</p>
                                     <p v-else>{{ product[1].details }}</p>
-                                    <p><strong>Price: </strong> {{ product[1].price }}$</p>
+                                    <p><strong>Price: </strong> {{ product[1].price }} RON</p>
                                     <a v-if="product[1].stock > 0" class="btn btn-primary" :href="'add-to-cart/' + product[1].id" role="button">Add to cart</a>
                                     <a v-else class="btn btn-primary disabled"role="button">Add to cart</a>
                                     <a class="btn btn-secondary text-white">View Details</a>

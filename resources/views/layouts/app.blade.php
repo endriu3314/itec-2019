@@ -69,7 +69,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">
-                                                 <span class="ml-4 price text-info"> ${{ $details['price'] }}</span>
+                                                 <span class="ml-3 price text-info">{{ $details['price'] }} RON</span>
                                                 </div>
                                                 <div class="col-6">
                                                     <span class=""> Quantity:{{ $details['quantity'] }}</span>
