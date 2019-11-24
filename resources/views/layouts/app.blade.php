@@ -37,6 +37,53 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-info text-white" data-toggle="dropdown">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <div class="row">
+                                    <div class="col">
+                                        <i class="fa fa-shopping-cart ml-2" aria-hidden="true"></i> <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
+                                    </div>
+
+                                    <?php $total = 0 ?>
+                                    @foreach((array) session('cart') as $id => $details)
+                                        <?php $total += $details['price'] * $details['quantity'] ?>
+                                    @endforeach
+
+                                    <div class="col">
+                                        <p>Total: <span class="text-info">{{ $total }}</span></p>
+                                    </div>
+                                </div>
+                                <hr/>
+
+                                @if(session('cart'))
+                                    @foreach(session('cart') as $id => $details)
+                                        <div class="row px-2">
+                                            <div class="col-4">
+                                                <img src="{{ $details['img_url'] }}" class="img-fluid" />
+                                            </div>
+                                            <div class="col-8">
+                                                <p>{{ $details['name'] }}</p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                 <span class="ml-4 price text-info"> ${{ $details['price'] }}</span>
+                                                </div>
+                                                <div class="col-6">
+                                                    <span class=""> Quantity:{{ $details['quantity'] }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                    @endforeach
+                                @endif
+                                <div class="row">
+                                    <a href="{{ url('cart') }}" class="ml-4 btn btn-primary">View all</a>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -89,6 +136,10 @@
             @yield('content')
         </main>
     </div>
+    <div class="m-4">
+        @yield('content2')
+    </div>
+    @stack('scripts')
 </body>
 
 <script src="{{asset('js/app.js')}}"></script>
